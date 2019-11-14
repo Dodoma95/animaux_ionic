@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" text="Back" defaultHref="home"></ion-back-button>
+      <ion-title>Jungle Sound</ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="reorderDisabled = ! reorderDisabled" [color]="reorderDisabled? 'primary':'danger'">
+        <ion-icon name="hand"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-reorder-group (ionItemReorder)="reorderAnimal($event)" [disabled]="reorderDisabled">
+    <ion-item *ngFor="let animal of animals; let currentAnimalPos=index" (click)="validateSound(currentAnimalPos)">
+      <ion-label id="animalTitle">{{ animal.title }}</ion-label> 
+      <ion-avatar slot="end"><ion-img src="/assets/{{animal.image}}"></ion-img></ion-avatar>
+      <ion-reorder slot="end">
+        <ion-icon name="hand"></ion-icon>
+      </ion-reorder>
+    </ion-item>
+  </ion-reorder-group>
+  </ion-list>
+
+
+  <ion-label>{{ message }}</ion-label>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="full" size="big" (click)="playSound()" 
+    [color]="currentAnimalPos != null? 'success':'primary'">PLAY SOUND</ion-button>
+  </ion-toolbar>
+</ion-footer>
